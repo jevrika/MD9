@@ -1,3 +1,58 @@
+* { 
+  box-sizing: border-box;
+}
+
 body {
-  background-color: antiquewhite;
+  background-color: white;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+}
+
+
+.heading__row{
+  padding:25px;
+}
+
+.search-inputs__row{
+  padding:25px;
+}
+
+.input__field{
+  border:1px solid rgb(162, 157, 157);
+  border-radius: 25px;
+  &:hover {
+  border: 1px solid rgb(197, 197, 245);
+  }
+
+  &:focus {
+    outline:none;
+  }
+}
+
+.search-button__row{
+  display: flex;
+  justify-content: center;
+  padding:25px;
+}
+
+.search__button{
+  border:1px solid rgb(162, 157, 157);
+  padding:5px 50px;
+  border-radius: 25px;
+  background-color: white;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.25;
+
+  &:hover {
+    opacity: 0.7;
+    border: 1px solid rgb(197, 197, 245);
+
+  }
+}
+
+.table-country__field {
+  display: flex;
+  flex-direction: column;
 }
