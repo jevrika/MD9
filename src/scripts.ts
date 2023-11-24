@@ -16,37 +16,50 @@ type Country = {
 };
 
 const tBody = document.querySelector<HTMLElement>('tbody');
+const loadMoreButton = document.querySelector<HTMLButtonElement>('.load-more__button');
+let currentIndex = 0;
 
-axios.get<Country[]>('http://localhost:3004/countries').then((response) => {
-  response.data.forEach((element, index) => {
-    const {
-      name, capital, currency, language,
-    } = element;
-    const row = document.createElement('tr');
+function loadMoreCountries() {
+  axios.get<Country[]>('http://localhost:3004/countries').then((response) => {
+    const next20Countries = response.data.slice(currentIndex, currentIndex + 20);
 
-    const num = document.createElement('th');
-    num.innerText = String(index + 1);
+    next20Countries.forEach((element, index) => {
+      const { name, capital, currency, language } = element;
+      const row = document.createElement('tr');
 
-    const nameCell = document.createElement('td');
-    nameCell.innerText = name;
+      const num = document.createElement('th');
+      num.innerText = String(currentIndex + index + 1);
 
-    const capitalCell = document.createElement('td');
-    capitalCell.innerText = capital;
+      const nameCell = document.createElement('td');
+      nameCell.innerText = name;
 
-    const currencyName = currency.name;
-    const currencyCell = document.createElement('td');
-    currencyCell.innerText = currencyName;
+      const capitalCell = document.createElement('td');
+      capitalCell.innerText = capital;
 
-    const languageName = language.name;
-    const languageCell = document.createElement('td');
-    languageCell.innerText = languageName;
+      const currencyName = currency.name;
+      const currencyCell = document.createElement('td');
+      currencyCell.innerText = currencyName;
 
-    row.appendChild(num);
-    row.appendChild(nameCell);
-    row.appendChild(capitalCell);
-    row.appendChild(currencyCell);
-    row.appendChild(languageCell);
+      const languageName = language.name;
+      const languageCell = document.createElement('td');
+      languageCell.innerText = languageName;
 
-    tBody.appendChild(row);
+      row.appendChild(num);
+      row.appendChild(nameCell);
+      row.appendChild(capitalCell);
+      row.appendChild(currencyCell);
+      row.appendChild(languageCell);
+
+      tBody.appendChild(row);
+    });
+
+    currentIndex += 20;
+
+    // Disable the button if there are no more countries to load
+    if (currentIndex >= response.data.length) {
+      loadMoreButton.disabled = true;
+    }
   });
-});
+}
+
+loadMoreButton.addEventListener('click', loadMoreCountries);

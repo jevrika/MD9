@@ -23,26 +23,35 @@
 
     <div class="row search-inputs__row">
       <div class="col-xl-3 col-md-3 col-xs-1">
-        <label class='input__heading' for="site-search">Country:</label>
-        <input class='input__field' type="search" id="site-search" name="country-name" required/>
+        <div class="input__wrapper">        
+          <label class='input__heading' for="site-search">Country:</label>
+          <input class='input__field' type="search" id="site-search" name="country-name" required/>
+      </div>
+
       </div>
       <div class="col-xl-3 col-md-3 col-xs-1">
-        <label class='input__heading' for="site-search">Capital:</label>
-        <input class='input__field' type="search" id="site-search" name="capital-name" required/>
+        <div class="input__wrapper">    
+          <label class='input__heading' for="site-search">Capital:</label>
+          <input class='input__field' type="search" id="site-search" name="capital-name" required/>
+        </div>
       </div>
       <div class="col-xl-3 col-md-3 col-xs-1">
-        <label class='input__heading' for="site-search">Currency:</label>
-        <input class='input__field' type="search" id="site-search" name="currency-name" required/>
+        <div class="input__wrapper">    
+          <label class='input__heading' for="site-search">Currency:</label>
+          <input class='input__field' type="search" id="site-search" name="currency-name" required/>
+        </div>
       </div>
       <div class="col-xl-3 col-md-3 col-xs-1">
-        <label class='input__heading' for="site-search">Language:</label>
-        <input class='input__field' type="search" id="site-search" name="language-name" required/>
+        <div class="input__wrapper">    
+          <label class='input__heading' for="site-search">Language:</label>
+          <input class='input__field' type="search" id="site-search" name="language-name" required/>
+        </div>
       </div>
     </div>
 
-    <div class="row search-button__row">
-      <div class="col-2">
-        <button type="button" class="search__button">Search</button>
+    <div class="row button__row">
+      <div class="col-xl-3 col-md-3 col-xs-1">
+        <button type="button" class="search__button button">Search</button>
       </div>
     </div>
 
@@ -61,6 +70,12 @@
 
         </tbody>
       </table>
+    </div>
+
+    <div class="row button__row">
+      <div class="col-xl-3 col-md-3 col-xs-1">
+        <button type="button" class="load-more__button button">Load More</button>
+      </div>
     </div>
   </div>
 
