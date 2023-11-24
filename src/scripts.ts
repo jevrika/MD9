@@ -1,8 +1,22 @@
-import $ from 'jquery';
-import sum from './utils/sum/sum';
+import axios from 'axios';
 
-console.log('Ready for coding');
+type Country = {
+  name: string;
+  code: string;
+  capital:string;
+  currency: {
+    code:string
+    name:string
+    symbol:string
+  }
+  language: {
+    code:string
+    name:string
+  }
+}
 
-console.log('Body jQuery node:', $('body'));
-console.log('Body javascript node:', document.querySelector('body'));
-console.log('2 + 3 =', sum(2, 3));
+axios.get<Country[]>(' http://localhost:3004/countries').then((response) => {
+  response.data.forEach((element) => {
+    console.log(element.currency.symbol);
+  });
+});
