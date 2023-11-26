@@ -15,8 +15,12 @@ body {
   margin-top:25px;
 }
 
+.heading {
+  font-weight: 700;
+}
+
 .heading__row{
-  padding:25px;
+  padding:50px;
 }
 
 .search-inputs__row{
@@ -29,16 +33,18 @@ body {
   gap:15px;
 }
 
+.input__heading{
+  font-weight: bold;
+}
+
 .input__field{
-  border:1px solid rgb(162, 157, 157);
-  border-radius: 25px;
+  border:1px solid #a29d9d;
+  border-radius: 10px;
+  padding:5px;
   &:hover {
-  border: 1px solid rgb(197, 197, 245);
+  border: 1px solid #d0f4ff;
   }
 
-  &:focus {
-    outline:none;
-  }
 }
 
 .button__row{
@@ -49,24 +55,27 @@ body {
 
 .button{
   border:none;
-  background-color: rgb(225, 225, 240);
-  padding:5px 50px;
-  border-radius: 25px;
+  background-color: #d0f4ff;
+  padding:15px 60px;
+  border-radius: 10px;
   cursor: pointer;
   opacity: 1;
   transition: opacity 0.25;
+  font-weight:500;
 
   &:hover {
     opacity: 0.7;
-    border: 1px solid rgb(197, 197, 245);
+    border: 1px solid #b5ecfc;
 
   }
 
 }  
+td,tr {
+  text-align: start;
+}
 
-.table-country__field {
-  display: flex;
-  flex-direction: column;
+th {
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 600px) {
@@ -86,3 +95,7 @@ body {
 
  }
 
+.flag-image{
+  width: 40px;
+  padding-left: 10px;
+}
