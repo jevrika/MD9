@@ -6,15 +6,17 @@ const capitalName = document.querySelector<HTMLInputElement>('input[name=capital
 const currencyName = document.querySelector<HTMLInputElement>('input[name=currency-name]');
 const languageName = document.querySelector<HTMLInputElement>('input[name=language-name]');
 
-const tBody = document.querySelector<HTMLElement>('tbody');
+const tBody = document.querySelector<HTMLTableSectionElement>('tbody');
 
+// Pogas
 const loadMoreButton = document.querySelector<HTMLButtonElement>('.load-more__button');
 const searchButton = document.querySelector<HTMLButtonElement>('.search__button');
-const sortButton = document.querySelectorAll<HTMLElement>('.table-head');
+const sortButton = document.querySelectorAll<HTMLTableColElement>('.table-head');
 
+// Lai sakotnēji rādītu 20 ierakstus
 let limit = 20;
-let sortedData;
-let currentSortOrder = 'desc';
+// Ieliek mainīgajā tagadējo secību
+let currentSortOrder = 'asc';
 
 class Country {
   name: string;
@@ -30,20 +32,22 @@ class Country {
     name: string;
   };
 
-  data: Country[];
-
+  // Dabū datus no db un uzzimē tos
   getTable() {
     axios.get<Country[]>(`http://localhost:3004/countries?_start=0&_limit=${limit}`).then((response) => {
-      this.data = response.data;
-      this.draw(this.data, tBody);
+      const responseData = response.data;
+      this.drawTable(responseData, tBody);
     });
     return this;
   }
 
-  draw(data: Country[], targetBody: HTMLElement) {
+  // Uzzimē tabulu
+  drawTable(data: Country[], targetBody: HTMLElement) {
     tBody.innerHTML = '';
     data.forEach((element) => {
-      const { name, capital, currency, language, code } = element;
+      const {
+        name, capital, currency, language, code,
+      } = element;
       const row = document.createElement('tr');
 
       const nameCell = document.createElement('td');
@@ -69,13 +73,14 @@ class Country {
 
       targetBody.appendChild(row);
     });
-    limit += 20;
   }
 
+  // Ielāde vēl valstis
   loadMoreCountries() {
     this.getTable();
   }
 
+  // Izdzēš visas rindas
   deleteAllRows() {
     const rows = document.querySelectorAll('tr');
     rows.forEach((row) => {
@@ -85,6 +90,7 @@ class Country {
     });
   }
 
+  // Meklē pēc search ievadītiem datiem, izdzēš rindas un uzzimē no jauna tabulu
   search() {
     const countryNameInput = countryName.value;
     const capitalNameInput = capitalName.value;
@@ -95,31 +101,31 @@ class Country {
       .get<Country[]>(`http://localhost:3004/countries?name_like=${countryNameInput}&capital_like=${capitalNameInput}&currency.name_like=${currencyNameInput}&language.name_like=${languageNameInput}`)
       .then((response) => {
         const result = response.data;
-        this.draw(result, tBody);
+        this.drawTable(result, tBody);
       });
   }
 
+  // Sortē tabulas datus un uzzimē tabulu tādā secībā kā ir izvēlēts
   sortData(sortBy: string) {
-    currentSortOrder = currentSortOrder === 'desc' ? 'asc' : 'desc';
-    axios.get(`http://localhost:3004/countries?_sort=${sortBy}&_order=${currentSortOrder}&_start=0&_limit=${limit - 20}`).then((response) => {
-      sortedData = response.data;
+    // Pārbauda vai tagadējā sortēšanas kārtība ir asc, ja ne, tad liek desc
+    currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+    axios.get(`http://localhost:3004/countries?_sort=${sortBy}&_order=${currentSortOrder}&_start=0&_limit=${limit}`).then((response) => {
+      const sortedData = response.data;
 
-      this.deleteAllRows();
-
-      this.draw(sortedData, tBody);
+      this.drawTable(sortedData, tBody);
     });
   }
 }
 
 const country = new Country().getTable();
-
 loadMoreButton.addEventListener('click', () => {
+  limit += 20;
+
   country.loadMoreCountries();
 });
 searchButton.addEventListener('click', () => {
   country.search();
 });
-
 sortButton[1].addEventListener('click', () => country.sortData('name'));
 sortButton[2].addEventListener('click', () => country.sortData('capital'));
 sortButton[3].addEventListener('click', () => country.sortData('currency.name'));

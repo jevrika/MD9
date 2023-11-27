@@ -44,7 +44,6 @@ body {
   &:hover {
   border: 1px solid #d0f4ff;
   }
-
 }
 
 .button__row{
@@ -62,14 +61,14 @@ body {
   opacity: 1;
   transition: opacity 0.25;
   font-weight:500;
+  white-space: nowrap;
 
   &:hover {
     opacity: 0.7;
     border: 1px solid #b5ecfc;
-
   }
-
 }  
+
 td,tr {
   text-align: start;
 }
@@ -78,24 +77,54 @@ th {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
-  .search-inputs__row {
-    display: flex;
-    flex-direction: column;
-    gap:25px;
-  }
-
-  .input__wrapper{
-    display: flex;
-    gap:25px;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-
- }
-
 .flag-image{
   width: 40px;
   padding-left: 10px;
 }
+
+@media only screen and (max-width: 600px) {
+  .search-inputs__row {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    gap:10px;
+  }
+
+  .input__wrapper{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 10px;
+  }
+
+  .input__field {
+    width:100%;
+    max-width:250px;
+  }
+
+  .button{
+    font-size: 10px;
+  }
+
+  .heading {
+    font-size: 26px;
+  }
+
+  .heading__row{
+    padding:25px;
+  }
+
+  .search-inputs__row{
+    padding:0
+  }
+  .table{
+    font-size: 10px;
+  }
+  .flag-image{
+    width: 25px;
+    padding-left: 5px;
+  }
+ }
+
