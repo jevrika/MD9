@@ -11,7 +11,7 @@ const tBody = document.querySelector<HTMLTableSectionElement>('tbody');
 // Pogas
 const loadMoreButton = document.querySelector<HTMLButtonElement>('.load-more__button');
 const searchButton = document.querySelector<HTMLButtonElement>('.search__button');
-const sortButton = document.querySelectorAll<HTMLTableColElement>('.table-head');
+const sortButton = document.querySelectorAll<HTMLElement>('.table-head');
 
 // Lai sakotnēji rādītu 20 ierakstus
 let limit = 20;
@@ -50,19 +50,23 @@ class Country {
       } = element;
       const row = document.createElement('tr');
 
-      const nameCell = document.createElement('td');
-      nameCell.innerText = name;
-
       const flagCell = document.createElement('td');
       flagCell.innerHTML = `<img class="flag-image" src="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.0.2/flags/1x1/${code.toLowerCase()}.svg"  alt="Flag Image"> `;
 
+      const nameCell = document.createElement('td');
+      nameCell.className = 'td-text';
+      nameCell.innerText = name;
+
       const capitalCell = document.createElement('td');
+      capitalCell.className = 'td-text';
       capitalCell.innerText = capital;
 
       const currencyCell = document.createElement('td');
+      currencyCell.className = 'td-text';
       currencyCell.innerText = currency?.symbol ? `${currency.symbol} - ${currency.name}` : `${currency.name}`;
 
       const languageCell = document.createElement('td');
+      languageCell.className = 'td-text';
       languageCell.innerText = language.name;
 
       row.appendChild(flagCell);
@@ -111,7 +115,6 @@ class Country {
     currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
     axios.get(`http://localhost:3004/countries?_sort=${sortBy}&_order=${currentSortOrder}&_start=0&_limit=${limit}`).then((response) => {
       const sortedData = response.data;
-
       this.drawTable(sortedData, tBody);
     });
   }
